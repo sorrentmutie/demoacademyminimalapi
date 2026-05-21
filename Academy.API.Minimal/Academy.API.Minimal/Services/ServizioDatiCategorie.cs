@@ -13,6 +13,14 @@ public class ServizioDatiCategorie : IDatiCategorie
         throw new NotImplementedException();
     }
 
+    public async Task<CategoriaDTO?> EstraiPerIdAsync(int id)
+    {
+        var c = await database.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.CategoryId == id);
+
+        if (c == null) return null;
+        return c.ToDTO();
+     }
+
     public async Task<IEnumerable<CategoriaDTO>?> EstraiTutteAsync()
     {
        return await database.Categories.Include(c => c.Products)
