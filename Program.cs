@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IDatiCategorie, ServizioDatiCategorie>();
-
+builder.Services.AddDbContext<NorthwindContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindContext")));
 
 var app = builder.Build();
 
