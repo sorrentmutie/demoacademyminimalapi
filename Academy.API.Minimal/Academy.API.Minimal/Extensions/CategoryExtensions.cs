@@ -13,4 +13,16 @@ public static  class CategoryExtensions
                 category.Products.Count
             );
     }
+
+
+    public static Category? FromDTO(this CategoriaCreaDTO cat) {
+        if (cat == null) return null;
+        return new Category { CategoryName = cat.Nome, Description = cat.Descrizione };      
+    }
+
+    public static Category? FromDTO(this CategoriaAggiornaDTO cat)
+    {
+        if (cat == null) return null;
+        return new Category { CategoryName = cat.Nome, Description = cat.Descrizione, CategoryId = cat.Id };
+    }
 }

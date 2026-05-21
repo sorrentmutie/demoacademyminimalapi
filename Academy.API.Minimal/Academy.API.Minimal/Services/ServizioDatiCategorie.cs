@@ -8,9 +8,23 @@ public class ServizioDatiCategorie : IDatiCategorie
     {
         this.database = database;
     }
-    public Task CreaCategoriaAsync(CategoriaCreaDTO categoria)
+
+    public async Task<bool> CancellaPerId(int id)
     {
-        throw new NotImplementedException();
+        var catOnDb = await database.Categories.FindAsync(id);
+        if (catOnDb == null) return false;
+        database.Categories.Remove(catOnDb);
+        await database.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<Category?> CreaCategoriaAsync(CategoriaCreaDTO categoria)
+    {
+        var cat = categoria.FromDTO();
+        if (cat == null) return null;
+        database.Categories.Add(cat);
+        await database.SaveChangesAsync();
+        return cat;
     }
 
     public async Task<CategoriaDTO?> EstraiPerIdAsync(int id)
@@ -33,8 +47,21 @@ public class ServizioDatiCategorie : IDatiCategorie
             .ToListAsync();
     }
 
-    public Task ModificaCategoriaAsync(CategoriaAggiornaDTO categoria)
+    public async Task ModificaCategoriaAsync(CategoriaAggiornaDTO categoria)
     {
-        throw new NotImplementedException();
+
+        var catOnDb = await database.Categories.FindAsync(categoria.Id);
+        if (catOnDb == null) return;
+        
+        if (!string.IsNullOrEmpty(categoria.Nome))
+        {
+            catOnDb.CategoryName = categoria.Nome;
+        }
+        if (!string.IsNullOrEmpty(categoria.Descrizione))
+        {
+            catOnDb.Description = categoria.Descrizione;
+        }
+        await database.SaveChangesAsync();
+
     }
 }

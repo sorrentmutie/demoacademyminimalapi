@@ -15,6 +15,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.RegistraEndpointCategorie();
+app.RegistraEndpointRandomUsers();
 
 app.UseHttpsRedirection();
 
