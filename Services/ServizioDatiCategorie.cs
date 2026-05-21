@@ -28,4 +28,12 @@ public class ServizioDatiCategorie : IDatiCategorie
     {
         throw new NotImplementedException();
     }
+
+    public async Task<CategoriaDTO?> EstraiPerIdAsync(int id)
+    {
+        //var category = await database.Categories.FindAsync(id);
+        var c = await database.Categories.Include(x => x.Products).FirstOrDefaultAsync(c => c.CategoryId == id);
+        if (c == null) return null;
+        return c.ToDTO();
+    }
 }
