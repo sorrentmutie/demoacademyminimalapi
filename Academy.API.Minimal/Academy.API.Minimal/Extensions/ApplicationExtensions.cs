@@ -10,5 +10,9 @@ public static class ApplicationExtensions
             options =>
             options.UseSqlServer(connectionString));
 
+        services.AddHttpClient("RandomUser", client => {
+            client.BaseAddress = new Uri("https://randomuser.me/api"); 
+        });
+
     }
 }
