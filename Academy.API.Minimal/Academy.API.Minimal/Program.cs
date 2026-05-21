@@ -17,6 +17,15 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.MapGet("/categorie", async (IDatiCategorie datiCategorie) =>
+{
+    var categorie = await datiCategorie.EstraiTutteAsync();
+    if (categorie is null)
+        return Results.NotFound();
+    return Results.Ok(categorie);
+});
+
+
 app.UseHttpsRedirection();
 
 app.Run();
