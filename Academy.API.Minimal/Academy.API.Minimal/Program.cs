@@ -23,7 +23,10 @@ app.MapGet("/categorie", async (IDatiCategorie datiCategorie) =>
     if (categorie is null)
         return Results.NotFound();
     return Results.Ok(categorie);
-});
+})
+.Produces<CategoriaDTO>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound)
+.Produces(StatusCodes.Status500InternalServerError);
 
 
 app.UseHttpsRedirection();
