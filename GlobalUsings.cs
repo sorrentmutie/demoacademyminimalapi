@@ -5,3 +5,4 @@ global using Scalar.AspNetCore;
 global using demoacademyminimalapi.Models.Models;
 global using Microsoft.EntityFrameworkCore;
 global using demoacademyminimalapi.Extensions;
+global using demoacademyminimalapi.EndPoints;

@@ -7,4 +7,10 @@ public static class CategoryExtensions
         if (category == null) return null;
         return new CategoriaDTO(category.CategoryId, category.CategoryName,category.Description,category.Products.Count);
     }
+
+    public static Category? FromDTO(this CategoriaCreaDTO category) 
+    {
+        if (category == null) return null;
+        return new Category { CategoryName = category.Nome, Description = category.Descrizione };
+    }
 }

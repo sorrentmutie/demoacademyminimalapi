@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace demoacademyminimalapi.services;
 
 public class ServizioDatiCategorie : IDatiCategorie
@@ -8,9 +10,13 @@ public class ServizioDatiCategorie : IDatiCategorie
         this.database = database;
     }
 
-    public Task CreaCategoriaAsync(CategoriaCreaDTO categoria)
+    public async Task<Category?> CreaCategoriaAsync(CategoriaCreaDTO categoria)
     {
-        throw new NotImplementedException();
+        var cat = categoria.FromDTO();
+        if (cat == null) return null;
+        database.Categories.Add(cat);
+        await database.SaveChangesAsync();
+        return cat;
     }
 
     public async Task<IEnumerable<CategoriaDTO>?> EstraiTutteAsync()
