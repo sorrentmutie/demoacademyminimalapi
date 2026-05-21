@@ -46,4 +46,13 @@ public class ServizioDatiCategorie : IDatiCategorie
         if (c == null) return null;
         return c.ToDTO();
     }
+
+    public async Task<bool> CancellaPerId(int id)
+    {
+        var catOnDb = await database.Categories.FindAsync(id);
+        if (catOnDb == null) return false;
+        database.Categories.Remove(catOnDb);
+        await database.SaveChangesAsync();
+        return true;
+    }
 }

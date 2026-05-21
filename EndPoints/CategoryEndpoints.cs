@@ -49,6 +49,14 @@ public static class CategoryEndpoints
             await datiCategorie.ModificaCategoriaAsync(categoria);
             return Results.NoContent();
         });
+
+        group.MapDelete("/{id:int}", async (int id,IDatiCategorie datiCategorie) =>
+        {
+            if (id<0) return Results.BadRequest();
+            var boolean = await datiCategorie.CancellaPerId(id);
+            if(boolean == false) return Results.NotFound();
+            return Results.NoContent();
+        });
     }
 
 }

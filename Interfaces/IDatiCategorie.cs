@@ -6,7 +6,8 @@ public interface IDatiCategorie
     Task<Category?> CreaCategoriaAsync(CategoriaCreaDTO categoria);
     Task ModificaCategoriaAsync(CategoriaAggiornaDTO categoria);
     Task<CategoriaDTO?> EstraiPerIdAsync(int id);
-    
+
+    Task<bool> CancellaPerId(int id);  
     
     
 }
