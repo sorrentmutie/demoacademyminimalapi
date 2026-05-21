@@ -1,8 +1,10 @@
-﻿namespace demoacademyminimalapi.EndPoints;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+
+namespace demoacademyminimalapi.EndPoints;
 
 public static class CategoryEndpoints
 {
-    public static void RegistraEndpointCategorie(this WebApplication webApplication)
+    public static async Task RegistraEndpointCategorie(this WebApplication webApplication)
     {
         var group = webApplication.MapGroup("/categorie");
         group.MapGet("/", async (IDatiCategorie datiCateogrie) =>
@@ -39,7 +41,14 @@ public static class CategoryEndpoints
         .Produces(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError)
         .Produces(StatusCodes.Status201Created);
-    }
 
+        group.MapPatch("/{id:int}",async(int id,CategoriaAggiornaDTO categoria, IDatiCategorie datiCategorie) =>
+        {
+            if(id !=categoria.Id) return Results.BadRequest();
+            if (categoria == null) return Results.BadRequest();
+            await datiCategorie.ModificaCategoriaAsync(categoria);
+            return Results.NoContent();
+        });
+    }
 
 }

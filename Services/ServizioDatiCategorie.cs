@@ -30,9 +30,13 @@ public class ServizioDatiCategorie : IDatiCategorie
                 )).ToListAsync();
     }
 
-    public Task ModificaCategoriaAsync(CategoriaAggiornaDTO categoria)
+    public async Task ModificaCategoriaAsync(CategoriaAggiornaDTO categoria)
     {
-        throw new NotImplementedException();
+        var categoriaOnDb = await database.Categories.FindAsync(categoria.Id);
+        if (categoriaOnDb == null) return;
+        if(!string.IsNullOrEmpty(categoria.Nome)) categoriaOnDb.CategoryName = categoria.Nome;
+        if(!string.IsNullOrEmpty(categoria.Descrizione)) categoriaOnDb.Description = categoria.Descrizione;
+        await database.SaveChangesAsync();
     }
 
     public async Task<CategoriaDTO?> EstraiPerIdAsync(int id)

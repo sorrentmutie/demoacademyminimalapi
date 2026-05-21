@@ -13,4 +13,9 @@ public static class CategoryExtensions
         if (category == null) return null;
         return new Category { CategoryName = category.Nome, Description = category.Descrizione };
     }
+    public static Category? FromDTO(this CategoriaAggiornaDTO category)
+    {
+        if (category == null) return null;
+        return new Category { CategoryName = category.Nome, Description = category.Descrizione, CategoryId=category.Id };
+    }
 }
